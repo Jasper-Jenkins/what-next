@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-//routs
+//routes
 var posts = require('./serverAssets/routes/posts')
 var users = require('./serverAssets/routes/users')
 var comments = require('./serverAssets/routes/comments')

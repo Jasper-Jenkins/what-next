@@ -22,7 +22,6 @@ router.get('/api/posts/:id',(req, res, next) =>{
   })
 })
 
-//add post  ********* change below
 //create the post
 router.post('/api/posts', (req, res, next) =>{
   var story = req.body
