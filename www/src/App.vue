@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img class="animated bounceInLeft" src="./assets/logo.png">
+    <img class="animated flip" src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
