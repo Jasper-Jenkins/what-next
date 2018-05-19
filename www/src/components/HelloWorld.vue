@@ -29,7 +29,7 @@
           <img :src="post.imgUrl">   
           <h1>Title: {{post.title}}</h1>
           <p>body: {{post.body}}</p>
-          <h6>Author: {{post.userId}}</h6>
+          <h6>Author: {{post.userName}}</h6>
           <!-- <button @click="addComment">Add comment</button>
           <button @click="deleteHouse(house)">Sold!</button>
           -->
@@ -65,6 +65,7 @@ export default {
         userName: ''
       },
       comment:{
+        userName: "",
        userId: 0,
        postId: 0,
        body: '',
@@ -89,12 +90,13 @@ export default {
 
     // },
     addPost() {
+      this.post.userName = this.user.userName
       this.post.userId = this.user._id
       this.$store.dispatch("addPost", this.post);
     },
-    addComment(){
+    // addComment(){
 
-    },
+    // },
     getUser(){
       this.$store.dispatch("getUser", this.checkUser)
     },

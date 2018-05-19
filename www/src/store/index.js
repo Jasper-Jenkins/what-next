@@ -16,17 +16,25 @@ export default new vuex.Store({
     state:{
           posts:[
               {
-                  title: "Best Story ever",
-                  body: "Kick ass story",
-                  imgUrl: "https://placehold.it/200x200",
-                  votes: 0,
-                  userId: 0,
-                    
+                userName: "",  
+                title: "Best Story ever",
+                body: "Kick ass story",
+                imgUrl: "https://placehold.it/200x200",
+                votes: 0,
+                userId: "",
               }
           ],
  
-          user:{}
+          user:{},
+comments:[{
+    votes: 0,
+    userId: "",
+    postId: "",
+    body: "",
+    userName: "",
+}]
       },
+
     mutations: {
         setPosts(state, posts){
             state.posts = posts
