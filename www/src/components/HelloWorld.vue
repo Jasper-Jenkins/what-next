@@ -43,7 +43,7 @@
 
 <script>
   import whatsNext from '../assets/whatsNext2.jpg'
-
+import post from './Post'
   export default {
     name: "HelloWorld",
     mounted() {
