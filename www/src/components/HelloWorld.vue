@@ -1,5 +1,5 @@
 <template>
-  <div> <h1>What's Next?</h1>
+  <div> <h1 class="animated lightSpeedIn">What's Next?</h1>
   <div class="hello">  {{newUser.userName}}{{newUser.id}} <!--{{users.name}}-->
     <div v-if="!user._id">
       <!--vif="function to handle userid check"-->
@@ -13,9 +13,9 @@
       </form>  
     </div>
     <div v-else>
-      <h1>{{user.userName}}</h1>
+      <h1>{{user.userName}}</h1> <form> <button type="submit">LogOut</button> </form>
       <div>
-        <form v-on:submit.prevent="addPost">
+        <form v-on:submit.prevent="addPost;post={}">
             <input type="string" name="title" placeholder="title" v-model="post.title">
             <input type="string" name="body" placeholder="Kick ass story" v-model="post.body">
             <button type='submit'>Add post</button>
@@ -29,10 +29,13 @@
           <img :src="post.imgUrl">   
           <h1>Title: {{post.title}}</h1>
           <p>body: {{post.body}}</p>
-          <h6>Author: {{post.userId}}</h6>
-          <!-- <button @click="addComment">Add comment</button>
-          <button @click="deleteHouse(house)">Sold!</button>
-          -->
+          <h6>Author: {{post.userName}}</h6>
+          <h6>{{post._id}}</h6>
+           <form v-on:submit.prevent="addComment(post._id,  $event.target.comment.value)">
+            <input type="string" name="comment" placeholder="comment" >
+           
+            <button type='submit'>Submit Comment</button>
+        </form>
           <div class="comment" v-for="comment in comments" :key='comment._id'></div>
       </div> 
     </div>
@@ -65,6 +68,7 @@ export default {
         userName: ''
       },
       comment:{
+        userName: "",
        userId: 0,
        postId: 0,
        body: '',
@@ -89,10 +93,16 @@ export default {
 
     // },
     addPost() {
+      this.post.userName = this.user.userName
       this.post.userId = this.user._id
       this.$store.dispatch("addPost", this.post);
     },
-    addComment(){
+    addComment(postId, newBody){
+      this.comment.body=newBody
+      this.comment.userId = this.user._id
+      this.comment.userName = this.user.userName
+      this.comment.postId = postId
+      this.$store.dispatch("addComment", this.comment)
 
     },
     getUser(){

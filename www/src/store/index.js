@@ -13,59 +13,83 @@ vue.use(vuex)
 
 //above is standard
 export default new vuex.Store({
-    state:{
-          posts:[
-              {
-                  title: "Best Story ever",
-                  body: "Kick ass story",
-                  imgUrl: "https://placehold.it/200x200",
-                  votes: 0,
-                  userId: 0,
-                    
-              }
-          ],
- 
-          user:{}
-      },
+    state: {
+        posts: [
+            {
+                userName: "",
+                title: "Best Story ever",
+                body: "Kick ass story",
+                imgUrl: "https://placehold.it/200x200",
+                votes: 0,
+                userId: "",
+            }
+        ],
+
+        user: {},
+        comments: [{
+            votes: 0,
+            userId: "",
+            postId: "",
+            body: "",
+            userName: "",
+        }]
+    },
+
     mutations: {
-        setPosts(state, posts){
+        setPosts(state, posts) {
             state.posts = posts
-        },  
-        setUser(state, user)  {
+        },
+        setComments(state, comments) {
+            state.comments = comments
+        },
+
+        setUser(state, user) {
             state.user = user
-        }            
+        }
     },
     actions: {
-        getPosts({dispatch, commit}){
-            api.get('posts').then(res=>{
+        getPosts({ dispatch, commit }) {
+            api.get('posts').then(res => {
                 console.log(res)
                 commit('setPosts', res.data)
-                
+
             })
         },
-        addPost({dispatch, commit}, post){
-            api.post('posts', post).then(res=>{
+        getComments({ dispatch, commit}){
+            api.get('comments').then(res =>{
+                commit('setComments', res.data)
+            })
+        },
+        addPost({ dispatch, commit }, post) {
+            api.post('posts', post).then(res => {
                 console.log(res)
                 dispatch('getPosts')
             })
+        },
+        addComment({ dispatch, commit }, comment) {
+           console.log(comment)
+            api.post('comments', comment)
+                .then(res => {
+                    dispatch('getComments')
+                })
         },
 
         addUser({ dispatch, commit }, user) {
             console.log(user)
             api.post('users', user)
                 .then(res => {
-               // console.log(res.data)
-                console.log(res)
-                commit('setUser', res.data)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-                   
+                    // console.log(res.data)
+                    console.log(res)
+                    commit('setUser', res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
         },
-        getUser({dispatch, commit}, user){
+        getUser({ dispatch, commit }, user) {
             console.log(user)
-            api.post('login/', user).then(res=>{
+            api.post('login/', user).then(res => {
                 console.log(res.data)
                 commit('setUser', res.data)
             })
