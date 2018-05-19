@@ -1,4 +1,5 @@
 <template>
+  <div> <h1>What's Next?</h1>
   <div class="hello">  {{newUser.userName}}{{newUser.id}} <!--{{users.name}}-->
     <div v-if="!newUser.id">
       <!--vif="function to handle userid check"-->
@@ -30,6 +31,7 @@
       </div> 
     </div>
   </div>
+</div>
 </template>
 
 <script>
