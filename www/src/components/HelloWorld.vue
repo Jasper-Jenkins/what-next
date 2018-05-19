@@ -25,18 +25,7 @@
       <div>{{msg}}</div>
    
       <div class="post" v-for="post in posts" :key='post._id'>
-          <!-- {{post}} -->
-          <img :src="post.imgUrl">   
-          <h1>Title: {{post.title}}</h1>
-          <p>body: {{post.body}}</p>
-          <h6>Author: {{post.userName}}</h6>
-          <h6>{{post._id}}</h6>
-           <form v-on:submit.prevent="addComment(post._id,  $event.target.comment.value)">
-            <input type="string" name="comment" placeholder="comment" >
-           
-            <button type='submit'>Submit Comment</button>
-        </form>
-          <div class="comment" v-for="comment in comments" :key='comment._id'></div>
+          <post :postProp="post"></post>
       </div> 
     </div>
   </div>
@@ -44,6 +33,7 @@
 </template>
 
 <script>
+import post from "./Post"
 export default {
   name: "HelloWorld",
   mounted() {
@@ -97,20 +87,19 @@ export default {
       this.post.userId = this.user._id
       this.$store.dispatch("addPost", this.post);
     },
-    addComment(postId, newBody){
-      this.comment.body=newBody
-      this.comment.userId = this.user._id
-      this.comment.userName = this.user.userName
-      this.comment.postId = postId
-      this.$store.dispatch("addComment", this.comment)
 
-    },
     getUser(){
       this.$store.dispatch("getUser", this.checkUser)
     },
     addUser(){
       this.$store.dispatch("addUser", this.newUser);
-    }
+    },
+  // getComments(postId){
+  //   this.$store.dispatch("getComments", postId)
+  // }
+  },
+  components:{
+    post
   }
 };
 </script>
