@@ -3,7 +3,7 @@ import vuex from 'vuex'
 import axios from 'axios'
 
 let api = axios.create({
-    baseURL: 'https://bcw-gregslist.herokuapp.com/api/', //here is the retrieval point
+    baseURL: '//localhost:3000/api/', //here is the retrieval point
     timeout: 3000,
     // withCredentials: true
 })
@@ -24,11 +24,8 @@ export default new vuex.Store({
 
               }
           ],
-          users: [{
-              name:'',
-              userId: 0
-          }], 
-          user:[]
+ 
+          user:{}
       },
     mutations: {
         setPosts(state, posts){
@@ -46,26 +43,33 @@ export default new vuex.Store({
                 
             })
         },
-        addUser({ dispatch, commit }, user) {
-            // api.post('users', {"userName": user}).then(res => {
-            //     dispatch('getPosts')
-            // })
-            console.log(user.userName)
-           commit('setUser',user.userName)
+        addPost({dispatch, commit}, post){
+            api.post('posts', post).then(res=>{
+                console.log(res)
+                dispatch('setPosts')
+            })
         },
-        // checkUser({dispatch,commit},newUser){
-        //     api.get('users',newUser).then(res=>{
-        //         for (let i = 0; i < res.data.length; i++) {
-        //             const element = res[i];
-        //             if (newUser.name==res.data[i].name){
-        //                 commit('setUser', res.data[i])
-        //                 return true
-        //             }
-        //             dispatch('addUser', newUser.name)
-        //             return false
-        //         }
-        //     })
-        // }
+
+        addUser({ dispatch, commit }, user) {
+            console.log(user)
+            api.post('users', user)
+                .then(res => {
+               // console.log(res.data)
+                console.log(res)
+                commit('setUser', res.data)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+                   
+        },
+        getUser({dispatch, commit}, user){
+            console.log(user)
+            api.post('login/', user).then(res=>{
+                console.log(res.data)
+                commit('setUser', res.data)
+            })
+        }
     }
 
 
