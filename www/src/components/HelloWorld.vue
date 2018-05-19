@@ -15,8 +15,8 @@
       <h1>{{user.userName}}</h1>
       <div>
         <form v-on:submit.prevent="addPost">
-            <input type="string" name="title" placeholder="title" v-model="posts.title">
-            <input type="string" name="body" placeholder="Kick ass story" v-model="posts.body">
+            <input type="string" name="title" placeholder="title" v-model="post.title">
+            <input type="string" name="body" placeholder="Kick ass story" v-model="post.body">
             <button type='submit'>Add post</button>
         </form>
       </div>
@@ -24,7 +24,7 @@
       <div>{{msg}}</div>
    
       <div class="post" v-for="post in posts" :key='post._id'>
-        
+          <!-- {{post}} -->
           <img :src="post.imgUrl">   
           <h1>Title: {{post.title}}</h1>
           <p>body: {{post.body}}</p>
@@ -32,6 +32,7 @@
           <!-- <button @click="addComment">Add comment</button>
           <button @click="deleteHouse(house)">Sold!</button>
           -->
+          <div class="comment" v-for="comment in comments" :key='comment._id'></div>
       </div> 
     </div>
   </div>
@@ -47,6 +48,7 @@ export default {
     return {
       msg: "Tell us your story",
       post: {
+        userName: "",
         title: "",
         userId: "",
         body: "",
@@ -59,7 +61,12 @@ export default {
       },
       checkUser:{
         userName: ''
-
+      },
+      comment:{
+       userId: 0,
+       postId: 0,
+       body: '',
+       votes: 0
       }
     };
   },
@@ -67,9 +74,9 @@ export default {
     posts() {
       return this.$store.state.posts;
     },
-    // users() {
-    //   return this.$store.state.users;
-    // },
+    comments() {
+      return this.$store.state.comments;
+    },
     user(){
       return this.$store.state.user;
     }
@@ -80,7 +87,11 @@ export default {
 
     // },
     addPost() {
+      this.post.userId = this.user._id
       this.$store.dispatch("addPost", this.post);
+    },
+    addComment(){
+
     },
     getUser(){
       this.$store.dispatch("getUser", this.checkUser)

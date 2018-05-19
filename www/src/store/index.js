@@ -21,7 +21,7 @@ export default new vuex.Store({
                   imgUrl: "https://placehold.it/200x200",
                   votes: 0,
                   userId: 0,
-
+                    
               }
           ],
  
@@ -46,7 +46,7 @@ export default new vuex.Store({
         addPost({dispatch, commit}, post){
             api.post('posts', post).then(res=>{
                 console.log(res)
-                dispatch('setPosts')
+                dispatch('getPosts')
             })
         },
 
