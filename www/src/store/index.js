@@ -26,21 +26,15 @@ export default new vuex.Store({
         ],
 
         user: {},
-        comments: [{
-            votes: 0,
-            userId: "",
-            postId: "",
-            body: "",
-            userName: "",
-        }]
+        comments: {}
     },
 
     mutations: {
         setPosts(state, posts) {
             state.posts = posts
         },
-        setComments(state, comments) {
-            state.comments = comments
+        setComments(state, data) {
+            state.comments[data.postId] = data.comments
         },
 
         setUser(state, user) {
@@ -55,9 +49,9 @@ export default new vuex.Store({
 
             })
         },
-        getComments({ dispatch, commit}){
-            api.get('comments').then(res =>{
-                commit('setComments', res.data)
+        getComments({ dispatch, commit},postId){
+            api.get('comments/'+postId).then(res =>{
+                commit('setComments', {comments:res.data, postId: postId })
             })
         },
         addPost({ dispatch, commit }, post) {
