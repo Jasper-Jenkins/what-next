@@ -12,8 +12,8 @@ router.get('/api/subcomments', (req,res,next) =>{
   })
 })
 
-router.get('/api/subcomments/:id',(req, res, next) =>{
-  Subcomments.findById(req.params.id)
+router.get('/api/subcomments/:commentId',(req, res, next) =>{
+  Subcomments.find({commentId: req.params.commentId})
   .then(subcomment=>{
     res.status(200).send(subcomment)
   })
