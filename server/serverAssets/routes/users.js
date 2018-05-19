@@ -44,6 +44,17 @@ router.post('/api/users', (req, res, next) =>{
   })
 })
 
+//login
+router.post('/api/login', (req, res, next) =>{
+Users.findOne(req.body)
+  .then(user =>{
+    res.status(200).send(user)
+  })
+  .catch(err =>{
+    res.status(400).send(err)
+  })
+})
+
 //delete user
 router.delete('/api/users/:id', (req, res, next) =>{
   Users.findByIdAndRemove(req.params.id)
