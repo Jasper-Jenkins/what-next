@@ -10,23 +10,23 @@
           <!--vif="function to handle userid check"-->
           <form v-on:submit.prevent="getUser">
             <input type="text" name="name" placeholder="please enter name" v-model="checkUser.userName">
-            <button type='submit'>Login</button>
+            <button class="btn btn-light" type='submit'>Login</button>
           </form>
           <form v-on:submit.prevent="addUser">
             <input type="text" name="name" placeholder="please enter name" v-model="newUser.userName">
-            <button type='submit'>Register</button>
+            <button class="btn btn-light" type='submit'>Register</button>
           </form>
         </div>
         <div v-else>
           <h1>{{user.userName}}</h1>
           <form>
-        <button type="submit">LogOut</button>
+        <button class="btn btn-light" type="submit">LogOut</button>
       </form>
       <div>
         <form v-on:submit.prevent="addPost;post={}">
           <input type="string" name="title" placeholder="title" v-model="post.title">
           <input type="string" name="body" placeholder="Kick ass story" v-model="post.body">
-          <button type='submit'>Add post</button>
+          <button class="btn btn-light" type='submit'>Add post</button>
         </form>
       </div>
       
