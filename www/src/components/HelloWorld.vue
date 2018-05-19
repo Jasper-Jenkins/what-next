@@ -15,8 +15,8 @@
       <h1>{{user.userName}}</h1>
       <div>
         <form v-on:submit.prevent="addPost">
-            <input type="string" name="title" placeholder="title" v-model="post.title">
-            <input type="string" name="body" placeholder="Kick ass story" v-model="post.body">
+            <input type="string" name="title" placeholder="title" v-model="posts.title">
+            <input type="string" name="body" placeholder="Kick ass story" v-model="posts.body">
             <button type='submit'>Add post</button>
         </form>
       </div>
